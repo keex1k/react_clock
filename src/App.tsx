@@ -1,34 +1,35 @@
 import React from 'react';
 import './App.scss';
-import { Clock } from './Clock'
+import { Clock } from './Clock';
 
 type State = {
   hasClock: boolean;
   clockName: string;
-}
+};
 
 export class App extends React.Component<{}, State> {
   state = {
     hasClock: true,
-    clockName: '0'
-  }
+    clockName: '0',
+  };
 
   handleRightClick = (event: MouseEvent) => {
     event.preventDefault();
-    this.setState({ hasClock: false })
-  }
+    this.setState({ hasClock: false });
+  };
 
   handleLeftClick = (event: MouseEvent) => {
-    if (event.button === 0) { // Sprawdzamy czy kliknięto lewy przycisk myszy
+    if (event.button === 0) {
+      // Sprawdzamy czy kliknięto lewy przycisk myszy
       this.setState({ hasClock: true });
     }
-  }
+  };
 
   componentDidMount(): void {
     document.addEventListener('contextmenu', this.handleRightClick);
     document.addEventListener('click', this.handleLeftClick);
     window.setInterval(() => {
-      this.setState({ clockName: Date.now().toString().slice(-4)})
+      this.setState({ clockName: Date.now().toString().slice(-4) });
     }, 3300);
   }
 
@@ -37,8 +38,14 @@ export class App extends React.Component<{}, State> {
     document.removeEventListener('click', this.handleLeftClick);
   }
 
-  componentDidUpdate(_prevProps: Readonly<{}>, prevState: Readonly<State>, _snapshot?: any): void {
-    console.debug(`Renamed from ${prevState.clockName} to ${this.state.clockName}`)
+  componentDidUpdate(
+    _prevProps: Readonly<{}>,
+    prevState: Readonly<State>,
+  ): void {
+    // eslint-disable-next-line no-console
+    console.debug(
+      `Renamed from ${prevState.clockName} to ${this.state.clockName}`,
+    );
   }
 
   render() {
@@ -49,16 +56,17 @@ export class App extends React.Component<{}, State> {
         {' time is '}
 
         <span className="Clock__time">
-          <Clock name = {this.state.clockName} />
+          <Clock name={this.state.clockName} />
         </span>
       </div>
-      )
+    );
+
     return (
       <div className="App">
-      <h1>React clock</h1>
+        <h1>React clock</h1>
 
-      {this.state.hasClock ? content : null}
-    </div>
+        {this.state.hasClock ? content : null}
+      </div>
     );
   }
 }
