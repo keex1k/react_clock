@@ -13,22 +13,28 @@ export class App extends React.Component<{}, State> {
     clockName: '0',
   };
 
+  intervalId = 0
+
   handleRightClick = (event: MouseEvent) => {
     event.preventDefault();
     this.setState({ hasClock: false });
+    window.clearInterval(this.intervalId);
   };
 
   handleLeftClick = (event: MouseEvent) => {
     if (event.button === 0) {
       // Sprawdzamy czy kliknięto lewy przycisk myszy
       this.setState({ hasClock: true });
+      this.intervalId = window.setInterval(() => {
+        this.setState({ clockName: Date.now().toString().slice(-4) });
+      }, 3300);
     }
   };
 
   componentDidMount(): void {
     document.addEventListener('contextmenu', this.handleRightClick);
     document.addEventListener('click', this.handleLeftClick);
-    window.setInterval(() => {
+    this.intervalId = window.setInterval(() => {
       this.setState({ clockName: Date.now().toString().slice(-4) });
     }, 3300);
   }
@@ -42,10 +48,13 @@ export class App extends React.Component<{}, State> {
     _prevProps: Readonly<{}>,
     prevState: Readonly<State>,
   ): void {
-    // eslint-disable-next-line no-console
-    console.debug(
-      `Renamed from ${prevState.clockName} to ${this.state.clockName}`,
-    );
+    if(this.state.clockName !== prevState.clockName){
+// eslint-disable-next-line no-console
+      console.debug(
+        `Renamed from Clock-${prevState.clockName} to Clock-${this.state.clockName}`,
+      );
+    }
+
   }
 
   render() {
