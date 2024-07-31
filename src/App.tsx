@@ -13,7 +13,7 @@ export class App extends React.Component<{}, State> {
     clockName: '0',
   };
 
-  intervalId = 0
+  intervalId = 0;
 
   handleRightClick = (event: MouseEvent) => {
     event.preventDefault();
@@ -48,13 +48,12 @@ export class App extends React.Component<{}, State> {
     _prevProps: Readonly<{}>,
     prevState: Readonly<State>,
   ): void {
-    if(this.state.clockName !== prevState.clockName){
-// eslint-disable-next-line no-console
+    if (this.state.clockName !== prevState.clockName) {
+      // eslint-disable-next-line no-console
       console.debug(
         `Renamed from Clock-${prevState.clockName} to Clock-${this.state.clockName}`,
       );
     }
-
   }
 
   render() {
