@@ -4,7 +4,7 @@ type State = {
   time: Date;
 };
 
-export class Clock extends React.Component<{name: string}, State> {
+export class Clock extends React.Component<{ name: string }, State> {
   state = {
     time: new Date(),
   };
@@ -22,7 +22,7 @@ export class Clock extends React.Component<{name: string}, State> {
           console.log(this.state.time.toUTCString().slice(-12, -4));
         },
       );
-    },1000);
+    }, 1000);
   }
 
   componentWillUnmount(): void {
@@ -34,12 +34,12 @@ export class Clock extends React.Component<{name: string}, State> {
       <>
         <strong className="Clock__name">{this.props.name}</strong>
 
-          {' time is '}
+        {' time is '}
 
-          <span className="Clock__time">
-            {this.state.time.toUTCString().slice(-12, -4)}
-          </span>
+        <span className="Clock__time">
+          {this.state.time.toUTCString().slice(-12, -4)}
+        </span>
       </>
-    )
+    );
   }
 }

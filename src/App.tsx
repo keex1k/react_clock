@@ -9,15 +9,15 @@ function getRandomName(): string {
 }
 
 type State = {
-  hasClock: boolean,
-  clockName: string,
-}
+  hasClock: boolean;
+  clockName: string;
+};
 
-export class App extends React.Component<{}, State>{
+export class App extends React.Component<{}, State> {
   state = {
     hasClock: true,
-    clockName: 'Clock-0'
-  }
+    clockName: 'Clock-0',
+  };
 
   intervalId = 0;
 
@@ -41,7 +41,7 @@ export class App extends React.Component<{}, State>{
     document.addEventListener('contextmenu', this.handleRightClick);
     document.addEventListener('click', this.handleLeftClick);
     this.intervalId = window.setInterval(() => {
-      this.setState({ clockName: getRandomName()});
+      this.setState({ clockName: getRandomName() });
     }, 3300);
   }
 
@@ -62,19 +62,19 @@ export class App extends React.Component<{}, State>{
     }
   }
 
-  render(){
+  render() {
     const content = (
       <div className="Clock">
-        <Clock name = {this.state.clockName} />
+        <Clock name={this.state.clockName} />
       </div>
     );
 
     return (
-      <div className = "App">
+      <div className="App">
         <h1>React clock</h1>
 
         {this.state.hasClock ? content : null}
       </div>
     );
   }
-};
+}
